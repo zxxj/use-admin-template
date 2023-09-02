@@ -5,6 +5,13 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "ant-design-vue": ["node_modules/ant-design-vue"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
