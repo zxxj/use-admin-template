@@ -17,6 +17,7 @@ module.exports = {
         "chore",
         "revert",
         "build",
+        "config",
       ],
     ],
     "type-case": [0],
