@@ -17,7 +17,7 @@
     "preinstall": "node ./scripts/preinstall.js"
   },
   "dependencies": {
-    "ant-design-vue": "~3.2.20",
+    "ant-design-vue": "~4.0.2",
     "normalize.css": "^8.0.1",
     "vue": "^3.3.4"
   },

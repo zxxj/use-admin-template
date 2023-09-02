@@ -10,7 +10,7 @@
 
     "baseUrl": "./",
     "paths": {
-      "ant-design-vue": ["node_modules/ant-design-vue"]
+      "@/*": ["src/*"]
     },
 
     /* Bundler mode */
