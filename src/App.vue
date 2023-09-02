@@ -1,7 +1,10 @@
 <template>
-  <Button>123</Button>
+  <useSvgIcon
+    :icon-name="'phone'"
+    :width="100"
+    :height="100"
+    :color="'yellow'"
+  />
 </template>
-<script setup lang="ts">
-import { Button } from 'ant-design-vue';
-</script>
+<script setup lang="ts"></script>
 <style scoped></style>
