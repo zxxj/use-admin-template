@@ -1,7 +1,6 @@
 import { message } from 'ant-design-vue';
 
 const httpError = (errorCode: number) => {
-  debugger;
   switch (errorCode) {
     case 201:
       message.error('账号或密码验证错误!');
