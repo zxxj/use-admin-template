@@ -47,8 +47,8 @@ declare module '*.vue' {
 #### 2.1.定制eslint配置
 
 ```js
-1.制定eslint配置: npx eslint --init  
-2.接下来会提示选项: 
+1.制定eslint配置: npx eslint --init
+2.接下来会提示选项:
 	How would you like to use ESLint? // 你想如何使用eslint?
     	选择:To check syntax and find problems // 检查语法病提示错误
   	 What type of modules does your project use? // 你的项目使用什么类型的模块?
@@ -69,64 +69,56 @@ declare module '*.vue' {
 ```js
 // 对外暴露出配置对象
 module.exports = {
+  // eslint运行的环境
+  env: {
+    browser: true, // 浏览器,
+    es2021: true, // 校验es2021语法
+  },
 
-    // eslint运行的环境
-    "env": {
-        "browser": true, // 浏览器,
-        "es2021": true // 校验es2021语法
+  // 规则继承
+  extends: [
+    'eslint:recommended', // 全部规则默认时关闭的.这个配置项将开启推荐规则,例如函数不能重名,对象不能出现重复的key
+    'plugin:@typescript-eslint/recommended', // ts的语法规则
+    'plugin:vue/vue3-essential', // vue3的语法规则
+  ],
+
+  // 为特定类型的文件指定处理器
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
     },
+  ],
 
-    // 规则继承
-    "extends": [
-       
-        "eslint:recommended", // 全部规则默认时关闭的.这个配置项将开启推荐规则,例如函数不能重名,对象不能出现重复的key
-        "plugin:@typescript-eslint/recommended",  // ts的语法规则
-        "plugin:vue/vue3-essential" // vue3的语法规则
-    ],
+  // 指定解析器选项
+  parserOptions: {
+    ecmaVersion: 'latest', // 校验ECMA最新版本
+    parser: '@typescript-eslint/parser', // 使用parser解析器
+    sourceType: 'module', // 选项为script/module, 作用是检查ECMAScript模块中的语法
+  },
 
-    // 为特定类型的文件指定处理器
-    "overrides": [
-        {
-            "env": {
-                "node": true
-            },
-            "files": [
-                ".eslintrc.{js,cjs}"
-            ],
-            "parserOptions": {
-                "sourceType": "script"
-            }
-        }
-    ],
+  // eslint插件
+  plugins: ['@typescript-eslint', 'vue'],
 
-    // 指定解析器选项
-    "parserOptions": {
-        "ecmaVersion": "latest", // 校验ECMA最新版本 
-        "parser": "@typescript-eslint/parser", // 使用parser解析器
-        "sourceType": "module" // 选项为script/module, 作用是检查ECMAScript模块中的语法
-    },
-
-    // eslint插件
-    "plugins": [
-        "@typescript-eslint", 
-        "vue"
-    ],
-
-    // eslint规则
-    "rules": {
-    }
-}
+  // eslint规则
+  rules: {},
+};
 ```
 
 #### 2.3.安装eslint插件
 
 ```
- pnpm install -D 
- eslint-plugin-import 
- eslint-plugin-vue 
- eslint-plugin-node 
- eslint-plugin-prettier 
- eslint-config-prettier 
+ pnpm install -D
+ eslint-plugin-import
+ eslint-plugin-vue
+ eslint-plugin-node
+ eslint-plugin-prettier
+ eslint-config-prettier
  eslint-plugin-node
  @babel/eslint-parser
 ```
@@ -144,25 +136,25 @@ module.exports = {
     jest: true,
   },
   /* 指定如何解析语法 */
-  parser: "vue-eslint-parser",
+  parser: 'vue-eslint-parser',
   /** 优先级低于 parse 的语法解析配置 */
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    parser: "@typescript-eslint/parser",
-    jsxPragma: "React",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser',
+    jsxPragma: 'React',
     ecmaFeatures: {
       jsx: true,
     },
   },
   /* 继承已有的规则 */
   extends: [
-    "eslint:recommended",
-    "plugin:vue/vue3-essential",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
-  plugins: ["vue", "@typescript-eslint"],
+  plugins: ['vue', '@typescript-eslint'],
   /*
    * "off" 或 0    ==>  关闭规则
    * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
@@ -170,26 +162,26 @@ module.exports = {
    */
   rules: {
     // eslint（https://eslint.bootcss.com/docs/rules/）
-    "no-var": "error", // 要求使用 let 或 const 而不是 var
-    "no-multiple-empty-lines": ["warn", { max: 1 }], // 不允许多个空行
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-unexpected-multiline": "error", // 禁止空余的多行
-    "no-useless-escape": "off", // 禁止不必要的转义字符
+    'no-var': 'error', // 要求使用 let 或 const 而不是 var
+    'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-unexpected-multiline': 'error', // 禁止空余的多行
+    'no-useless-escape': 'off', // 禁止不必要的转义字符
 
     // typeScript (https://typescript-eslint.io/rules)
-    "@typescript-eslint/no-unused-vars": "error", // 禁止定义未使用的变量
-    "@typescript-eslint/prefer-ts-expect-error": "error", // 禁止使用 @ts-ignore
-    "@typescript-eslint/no-explicit-any": "off", // 禁止使用 any 类型
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-namespace": "off", // 禁止使用自定义 TypeScript 模块和命名空间。
-    "@typescript-eslint/semi": "off",
+    '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
+    '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
+    '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
+    '@typescript-eslint/semi': 'off',
 
     // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
-    "vue/multi-word-component-names": "off", // 要求组件名称始终为 “-” 链接的单词
-    "vue/script-setup-uses-vars": "error", // 防止<script setup>使用的变量<template>被标记为未使用
-    "vue/no-mutating-props": "off", // 不允许组件 prop的改变
-    "vue/attribute-hyphenation": "off", // 对模板中的自定义组件强制执行属性命名样式
+    'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
+    'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
+    'vue/no-mutating-props': 'off', // 不允许组件 prop的改变
+    'vue/attribute-hyphenation': 'off', // 对模板中的自定义组件强制执行属性命名样式
   },
 };
 ```
@@ -255,19 +247,19 @@ pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
 #### 4.1.安装插件
 
 ```js
-pnpm add 
-sass sass-loader 
-stylelint 
-postcss 
-postcss-scss 
-postcss-html 
-stylelint-config-prettier 
-stylelint-config-recess-order 
-stylelint-config-recommended-scss 
-stylelint-config-standard 
-stylelint-config-standard-vue 
-stylelint-scss stylelint-order 
-stylelint-config-standard-scss 
+pnpm add
+sass sass-loader
+stylelint
+postcss
+postcss-scss
+postcss-html
+stylelint-config-prettier
+stylelint-config-recess-order
+stylelint-config-recommended-scss
+stylelint-config-standard
+stylelint-config-standard-vue
+stylelint-scss stylelint-order
+stylelint-config-standard-scss
 -D
 ```
 
@@ -326,7 +318,7 @@ module.exports = {
       },
     ],
   },
-}
+};
 ```
 
 #### 4.3.添加.stylelintigonre忽略文件
@@ -362,7 +354,7 @@ pnpm install husky -D
 ```
 
 ```js
-作用: 在提交代码之前检测代码格式规范
+作用: 在提交代码之前检测代码格式规范;
 ```
 
 #### 5.1.执行
@@ -394,33 +386,33 @@ pnpm add @commitlint/config-conventional @commitlint/cli -D
 
 ```js
 module.exports = {
-  extends: ["@commitlint/config-conventional"],
+  extends: ['@commitlint/config-conventional'],
 
   // 校验规则
   rules: {
-    "type-enum": [
+    'type-enum': [
       2,
-      "always",
+      'always',
       [
-        "feat",
-        "fix",
-        "docs",
-        "style",
-        "refactor",
-        "perf",
-        "test",
-        "chore",
-        "revert",
-        "build",
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'revert',
+        'build',
       ],
     ],
-    "type-case": [0],
-    "type-empty": [0],
-    "scope-empty": [0],
-    "scope-case": [0],
-    "subject-full-stop": [0, "never"],
-    "subject-case": [0, "never"],
-    "header-max-length": [0, "always", 72],
+    'type-case': [0],
+    'type-empty': [0],
+    'scope-empty': [0],
+    'scope-case': [0],
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never'],
+    'header-max-length': [0, 'always', 72],
   },
 };
 ```
@@ -465,13 +457,13 @@ pnpm run commitlint // 在commit时执行钩子,并检测提交规范
 #### 7.1.在跟目录下创建script文件夹并创建preinstall.js文件并写入以下配置
 
 ```js
-if (!/pnpm/.test(process.env.npm_execpath || "")) {
+if (!/pnpm/.test(process.env.npm_execpath || '')) {
   console.warn(
     `\u001b[33mThis repository must using pnpm as the package manager ` +
       ` for scripts to work properly.\u001b[39m\n`,
   );
 
-  console.warn("请使用pnpm安装依赖! mr.zhangxinxin");
+  console.warn('请使用pnpm安装依赖! mr.zhangxinxin');
   process.exit(1);
 }
 ```
@@ -554,7 +546,7 @@ VITE_SERVE="http://test.com"
 #### 2.查看当前环境
 
 ```js
-console.log(import.meta.env)
+console.log(import.meta.env);
 ```
 
 ## 五.SVG图标配置与封装
@@ -649,7 +641,6 @@ defineProps({
 </script>
 
 <style scoped lang="less"></style>
-
 ```
 
 使用:
@@ -672,7 +663,9 @@ import useSvgIcon from './components/useSvgIcon.vue';
 ### 5.5.svg的小坑
 
 ```js
-使用fill设置颜色时,有时可能会不生效,这时候需要去svg文件中找到fill配置并删除即可
+使用fill设置颜色时,
+  有时可能会不生效,
+  这时候需要去svg文件中找到fill配置并删除即可;
 ```
 
 ### 5.6.自定义插件注册svg全局组件
@@ -707,4 +700,3 @@ const app = createApp(App);
 app.mount('#app');
 
 ```
-
