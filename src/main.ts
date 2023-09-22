@@ -3,6 +3,7 @@ import router from './router';
 import App from '@/App.vue';
 import 'virtual:svg-icons-register';
 import 'normalize.css';
+import '@/design/antdesign.scss';
 import globalComponents from './components/index';
 
 const app = createApp(App);
