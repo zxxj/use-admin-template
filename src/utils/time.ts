@@ -4,7 +4,7 @@ export const currentTimeMessage = () => {
 
   if (hour <= 9) {
     message = '上午好!';
-  } else if (hour >= 9 && hour <= 12) {
+  } else if (hour > 9 && hour <= 12) {
     message = '中午好!';
   } else if (hour >= 13 && hour <= 24) {
     message = '下午好';
