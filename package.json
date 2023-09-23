@@ -19,10 +19,12 @@
     "build:pro": "vue-tsc && vite build --mode production"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.0",
     "ant-design-vue": "~4.0.2",
     "axios": "^1.5.0",
     "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
+    "pinia": "^2.1.6",
     "sass": "^1.68.0",
     "sass-loader": "^13.3.2",
     "vite-plugin-mock": "2.9.6",

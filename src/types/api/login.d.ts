@@ -5,9 +5,13 @@ export interface ILoginFormData {
 }
 
 // 登录接口返回类型
+interface data {
+  token?: string;
+  message?: string;
+}
 export interface ILoginResult {
   code: number;
-  token: string;
+  data: data;
 }
 
 // 用户信息接口返回类型

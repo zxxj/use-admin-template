@@ -7,6 +7,6 @@ import type {
 } from '@/types/api/login';
 
 export const login = (data: ILoginFormData) =>
-  request.post<ILoginResult>(ENUM.login, data);
+  request.post<any, ILoginResult>(ENUM.login, data);
 
 export const getUserInfo = () => request.get<IUserInfoResult>(ENUM.userInfo);

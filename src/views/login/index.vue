@@ -4,16 +4,26 @@
       <Col :span="18" :xs="0" :lg="18" class="left-container"></Col>
       <Col :span="6" :xs="24" :lg="6" class="right-container">
         <div class="login-form-container">
-          <Form class="form" :model="loginForm">
-            <FormItem label="账号" class="label">
-              <Input v-model:value="loginForm.username" />
+          <Form ref="formRef" :rules="rules" class="form" :model="loginForm">
+            <FormItem class="label" name="username">
+              <Input v-model:value="loginForm.username">
+                <template #prefix><UserOutlined /></template>
+              </Input>
             </FormItem>
-            <FormItem label="密码" class="label">
-              <Input v-model:value="loginForm.password" type="password" />
+            <FormItem class="label" name="password">
+              <Input v-model:value="loginForm.password" type="password">
+                <template #prefix><LockOutlined /></template>
+              </Input>
             </FormItem>
 
             <FormItem>
-              <Button class="loginBtn" @click="loginBtnClick">登录</Button>
+              <Button
+                class="loginBtn"
+                :loading="isLoading"
+                @click="loginBtnClick"
+              >
+                登录
+              </Button>
             </FormItem>
           </Form>
         </div>
@@ -23,15 +33,38 @@
 </template>
 <script setup lang="ts">
 import { Row, Col, Form, FormItem, Input, Button } from 'ant-design-vue';
+import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { ref } from 'vue';
+import useUserStore from '@/stores/modules/user';
+import type { ILoginFormData } from '@/types/api/login';
+import type { Rule } from 'ant-design-vue/es/form';
 
-const loginForm = ref({
+const userStore = useUserStore();
+
+const formRef = ref();
+
+const rules: Record<string, Rule[]> = {
+  username: [{ required: true, message: '请输入用户名!', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码!', trigger: 'blur' }],
+};
+
+const loginForm = ref<ILoginFormData>({
   username: 'admin',
   password: '111111',
 });
 
-const loginBtnClick = () => {
-  console.log(123);
+const isLoading = ref(false);
+
+const loginBtnClick = async () => {
+  isLoading.value = true;
+  formRef.value
+    .validate()
+    .then(async () => {
+      await userStore.loginAction(loginForm.value);
+    })
+    .catch(() => {
+      isLoading.value = false;
+    });
 };
 </script>
 
@@ -44,17 +77,12 @@ const loginBtnClick = () => {
     .left-container {
       width: 80%;
       height: 100%;
-      background-image: linear-gradient(
-        -225deg,
-        #231557 0%,
-        #44107a 29%,
-        #ff1361 67%,
-        #fff800 100%
-      );
+      background: url('../../assets/bg.jpg') no-repeat center center;
+      background-size: cover;
     }
 
     .right-container {
-      background-image: linear-gradient(to top, #f43b47 0%, #453a94 100%);
+      background-color: #bbc1bf;
       .login-form-container {
         display: flex;
         justify-content: center;
@@ -66,8 +94,7 @@ const loginBtnClick = () => {
           width: 60%;
 
           .loginBtn {
-            margin-left: 40px;
-            width: 70%;
+            width: 80%;
             color: #fff;
             background-image: linear-gradient(
               to right,
