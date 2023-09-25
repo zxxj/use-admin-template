@@ -7,10 +7,12 @@ import { getLocalStore, setLocalStore } from '@/utils/auth';
 import { auth } from '@/enums/auth';
 import { message, notification } from 'ant-design-vue';
 import { currentTimeMessage } from '@/utils/time';
+import { constantRoutes } from '@/router/routes';
 
 const useUserStore = defineStore('user', {
   state: (): IUserState => ({
     token: getLocalStore(auth.TOKEN) ?? null,
+    constantRoutes: constantRoutes,
   }),
 
   actions: {
